@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Button.qml</file>
+        <file>Menu.qml</file>
+        <file>Gameplay.qml</file>
+        <file>Images/MenuBackground.jpg</file>
+        <file>GroundBrick.qml</file>
+        <file>Images/Ground.png</file>
+        <file>Mario.qml</file>
+        <file>Images/Mario.png</file>
+        <file>Images/GameBackground1.png</file>
+        <file>Images/GameBackground2.png</file>
+        <file>Images/Castle.png</file>
+        <file>Images/Coin.png</file>
+        <file>PauseMenu.qml</file>
+        <file>Images/Sign.png</file>
+        <file>FinalDialog.qml</file>
+        <file>Images/UpArrow.png</file>
+        <file>Images/Pipe.png</file>
+    </qresource>
+</RCC>
