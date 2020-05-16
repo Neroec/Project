@@ -63,13 +63,9 @@ QVector<int> GameManager::objectsCollision(int marioWidth, int marioHeight, int 
     int i, j, count, sideX, sideY, distanceX, distanceY;
     j = 3, count = objects[0], sideX = 0, sideY = 0;
 
-    // Старые координаты Марио
-    int marioXOld, marioYOld;
-    marioXOld = marioX, marioYOld = marioY;
-
-    // Старые скорости Марио
-    int marioXVelocityOld, marioYVelocityOld;
-    marioXVelocityOld = marioXVelocity, marioYVelocityOld = marioYVelocity;
+    // Старый X Марио
+    int marioXOld;
+    marioXOld = marioX;
 
     // Размеры объектов
     int objectWidth, objectHeight;
@@ -77,6 +73,10 @@ QVector<int> GameManager::objectsCollision(int marioWidth, int marioHeight, int 
 
     // Вектор новых координат, скорости по вертикали и стороны коллизии
     QVector<int> collis = { marioX, marioY, marioYVelocity, 0};
+
+    // Коллизии нет, если размеры не больше 0
+    if (marioWidth <= 0 || marioHeight <= 0 || objectWidth <= 0 || objectHeight <= 0)
+        return collis;
 
     // Для каждого объекта
     for (i = 0; i < count; i++) {
@@ -129,23 +129,13 @@ QVector<int> GameManager::objectsCollision(int marioWidth, int marioHeight, int 
 
             // Если объект в Марио
             if (objects[j] > marioX && objects[j] < marioX + marioWidth) {
-                if (marioXVelocity > 0) marioX -= 2 * marioXVelocity;
-                else if (marioXVelocity < 0) marioX += 2 * marioXVelocity;
+                if (marioXVelocity > 0) marioX = marioXOld;
+                else if (marioXVelocity < 0) marioX = marioXOld;
             }
 
-            // Если смещение больше скорости по X
-            if (abs(marioX - marioXOld) > abs(marioXVelocityOld)) {
-                collis[0] = marioXOld - marioXVelocityOld;
-            } else {
-                collis[0] = marioX;
-            }
-
-            // Если смещение больше скорости по Y
-            if (abs(marioY - marioYOld) > abs(marioYVelocityOld)) {
-                collis[1] = marioYOld - marioYVelocityOld;
-            } else {
-                collis[1] = marioY;
-            }
+            // Сохраняем новые координаты
+            collis[0] = marioX;
+            collis[1] = marioY;
 
             // Сохраняем новую скорость по Y и сторону вертикальной коллизии
             collis[2] = marioYVelocity;
@@ -181,6 +171,10 @@ QVector<int> GameManager::coinsCollision(int marioWidth, int marioHeight, int ma
     int objectWidth, objectHeight;
     objectWidth = objects.value(1), objectHeight = objects.value(2);
 
+    // Коллизии нет, если размеры не больше 0
+    if (marioWidth <= 0 || marioHeight <= 0 || objectWidth <= 0 || objectHeight <= 0)
+        return objects;
+
     // Для каждого объекта
     for (i = 0; i < count; i++) {
         // Если одновременная коллизия по двум координатам
@@ -192,6 +186,7 @@ QVector<int> GameManager::coinsCollision(int marioWidth, int marioHeight, int ma
            objects.remove(j);
 
            j -= 2;
+           i--;
            count--;
            objects.replace(0, count);
 
@@ -214,6 +209,10 @@ QVector<int> GameManager::coinsCollision(int marioWidth, int marioHeight, int ma
  */
 bool GameManager::yCollision(int marioHeight, int marioY, int objectHeight, int objectY)
 {
+    // Высота всегда больше 0
+    if (marioHeight <= 0 || objectHeight <= 0)
+        return false;
+
     // Расстояние между центрами по Y
     int dy = abs((marioY + marioHeight / 2) - (objectY + objectHeight / 2));
 
@@ -238,6 +237,10 @@ bool GameManager::yCollision(int marioHeight, int marioY, int objectHeight, int 
  */
 bool GameManager::xCollision(int marioWidth, int marioX, int objectWidth, int objectX)
 {
+    // Ширина всегда больше 0
+    if (marioWidth <= 0 || objectWidth <= 0)
+        return false;
+
     // Расстояние между центрами по X
     int dx = abs((marioX + marioWidth / 2) - (objectX + objectWidth / 2));
 
