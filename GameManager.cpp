@@ -62,11 +62,7 @@ QVector<int> GameManager::objectsCollision(int marioWidth, int marioHeight, int 
 {
     int i, j, count, sideX, sideY, distanceX, distanceY;
     j = 3, count = objects[0], sideX = 0, sideY = 0;
-
-    // Старый X Марио
-    int marioXOld;
-    marioXOld = marioX;
-
+    
     // Размеры объектов
     int objectWidth, objectHeight;
     objectWidth = objects[1], objectHeight = objects[2];
