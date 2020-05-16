@@ -129,9 +129,8 @@ QVector<int> GameManager::objectsCollision(int marioWidth, int marioHeight, int 
 
             // Если объект в Марио
             if (objects[j] > marioX && objects[j] < marioX + marioWidth) {
-                if (marioXVelocity > 0) marioX = marioXOld;
-                else if (marioXVelocity < 0) marioX = marioXOld;
-            }
+                marioX = marioXOld;
+	    }
 
             // Сохраняем новые координаты
             collis[0] = marioX;
